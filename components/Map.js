@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { WebView } from 'react-native-webview'
 import MapView, { Marker, Polyline } from 'react-native-maps'
 import * as Location from 'expo-location'
 import axios from 'axios'
@@ -9,10 +8,10 @@ const ORS_API_KEY = '5b3ce3597851110001cf6248be96be8bcda642c6b7f692b007da1c42'
 const ORL_URL = 'https://api.openrouteservice.org/geocode/search'
 
 export const Map = () => {
-    const [startLocation, setStartLocation] = useState(null)
+    const [startLocation, setStartLocation] = useState(null) // 175 avenue du Général Giraud, 94100 Saint-Maur des Fossés, France
     const [destination, setDestination] = useState('') // 15 avenue d'Arromanches, 94100 Saint-Maur des Fossés, France
     const [destinationCoords, setDestinationCoords] = useState(null)
-    const [currentLocation, setCurrentLocation] = useState(null)
+    const [myCoords, setMyCoords] = useState(null)
 
     useEffect(()=>{
         (async () => {
@@ -24,8 +23,7 @@ export const Map = () => {
             
             const step_interval = setInterval(async () => {
                 const location = await Location.getCurrentPositionAsync({})
-                setStartLocation(location.coords)
-                setCurrentLocation(location.coords)
+                setMyCoords(location.coords)
             }, 1000)
 
             return () => clearInterval(step_interval)
@@ -64,24 +62,24 @@ export const Map = () => {
 
     return (
         <View style={styles.container}>
-        {currentLocation && 
+        {myCoords && 
         <MapView
             style={styles.map}
             initialRegion={{
-                latitude: currentLocation.latitude,
-                longitude: currentLocation.longitude,
+                latitude: myCoords.latitude,
+                longitude: myCoords.longitude,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
             showsUserLocation={true}
         >
-            <Marker coordinate={currentLocation} title="Ma position"/>
+            <Marker coordinate={myCoords} title="Ma position"/>
             {destinationCoords &&
             <>
                 <Marker coordinate={destinationCoords} title="Ma destination"/>
                 <Polyline
                     coordinates={[
-                        currentLocation,
+                        myCoords,
                         destinationCoords
                     ]}
                     strokeColor='red'
