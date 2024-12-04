@@ -1,12 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
 
-import { Map } from './components/Map'
+import { FullWrapper } from './components/ui/FullWrapper'
+import { Map } from './components/map/Map'
+
+import { useAtom } from 'jotai'
+import { showFullWrapperAtom } from './data/atoms'
 
 export default function App() {
+  const [showFullWrapper, setShowFullWrapper] = useAtom(showFullWrapperAtom)
+
   return (
-    <View style={styles.container}>
-      <Map/>
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <FullWrapper show={showFullWrapper}/>
+        <Map/>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
