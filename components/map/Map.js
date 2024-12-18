@@ -112,101 +112,101 @@ export const Map = () => {
 
     return (
         <View style={styles.container}>
-        {addressModal &&
-            <AddressModal
-                type={addressModal}
-                onValid={(address) => handleValidAddress(address)}
-                onCancel={() => handleCancelAddressModal()}
-            />
-        }
-        {showPathFinderModal && 
-            <PathFinderModal
-                start={start}
-                destination={destination}
-                onValid={() => calculatePath()}
-                onCancel={() => setShowPathFinderModal(false)}
-            />
-        }
-        {travelInfos &&
-            <View style={styles.infos_container}>
-                <Text style={styles.text_info}>
-                    Distance : {travelInfos.distance} KM
-                </Text>
-                <Text style={styles.text_info}>
-                    Temps estimé du trajet : {getPreciseTime()}
-                </Text>
+            {addressModal &&
+                <AddressModal
+                    type={addressModal}
+                    onValid={(address) => handleValidAddress(address)}
+                    onCancel={() => handleCancelAddressModal()}
+                />
+            }
+            {showPathFinderModal && 
+                <PathFinderModal
+                    start={start}
+                    destination={destination}
+                    onValid={() => calculatePath()}
+                    onCancel={() => setShowPathFinderModal(false)}
+                />
+            }
+            {travelInfos &&
+                <View style={styles.infos_container}>
+                    <Text style={styles.text_info}>
+                        Distance : {travelInfos.distance} KM
+                    </Text>
+                    <Text style={styles.text_info}>
+                        Temps estimé du trajet : {getPreciseTime()}
+                    </Text>
+                </View>
+            }
+            {myCoords &&
+            <MapView
+                style={styles.map}
+                region={{
+                    latitude: myCoords.latitude,
+                    longitude: myCoords.longitude,
+                    latitudeDelta: 0.10,
+                    longitudeDelta: 0.10,
+                }}
+                showsUserLocation={true}
+            >
+                {start?.geometry?.coordinates &&
+                <>
+                    <Marker coordinate={{
+                        latitude: start?.geometry?.coordinates[1],
+                        longitude: start?.geometry?.coordinates[0]}}
+                        title="Mon point de départ"
+                    />
+                </>    
+                }
+                <Marker coordinate={myCoords} title="Ma position actuelle"/>
+                {destination?.geometry?.coordinates &&
+                <>
+                    <Marker coordinate={{
+                        latitude: destination?.geometry?.coordinates[1],
+                        longitude: destination?.geometry?.coordinates[0]}}
+                        title="Ma destination"
+                    />
+                </>    
+                }
+                {routeCoordinates.length > 0 &&
+                    <Polyline
+                        coordinates={routeCoordinates}
+                        strokeColor='red'
+                        strokeWidth={4}
+                    />
+                }
+            </MapView>
+            }
+            <View style={styles.buttons_container}>
+                <TouchableOpacity
+                    style={styles.picto_touchable}
+                    onPressIn={() => setAddressModal('start')}
+                >
+                    <Image
+                        style={styles.picto}
+                        source={images.ui.start}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.picto_touchable}
+                    onPressIn={() => handleShowPathFinder()}
+                >
+                    <Image
+                        style={styles.picto}
+                        source={images.ui.burgermenu}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.picto_touchable}
+                    onPressIn={() => setAddressModal('dest')}
+                >
+                    <Image
+                        style={styles.picto}
+                        source={images.ui.dest}
+                    />
+                </TouchableOpacity>
             </View>
-        }
-        {myCoords &&
-        <MapView
-            style={styles.map}
-            initialRegion={{
-                latitude: myCoords.latitude,
-                longitude: myCoords.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            }}
-            showsUserLocation={true}
-        >
-            {start?.geometry?.coordinates &&
-            <>
-                <Marker coordinate={{
-                    latitude: start?.geometry?.coordinates[1],
-                    longitude: start?.geometry?.coordinates[0]}}
-                    title="Mon point de départ"
-                />
-            </>    
-            }
-            <Marker coordinate={myCoords} title="Ma position actuelle"/>
-            {destination?.geometry?.coordinates &&
-            <>
-                <Marker coordinate={{
-                    latitude: destination?.geometry?.coordinates[1],
-                    longitude: destination?.geometry?.coordinates[0]}}
-                    title="Ma destination"
-                />
-            </>    
-            }
-            {routeCoordinates.length > 0 &&
-                <Polyline
-                    coordinates={routeCoordinates}
-                    strokeColor='red'
-                    strokeWidth={4}
-                />
-            }
-        </MapView>
-        }
-        <View style={styles.buttons_container}>
-            <TouchableOpacity
-                style={styles.picto_touchable}
-                onPressIn={() => setAddressModal('start')}
-            >
-                <Image
-                    style={styles.picto}
-                    source={images.ui.start}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={styles.picto_touchable}
-                onPressIn={() => handleShowPathFinder()}
-            >
-                <Image
-                    style={styles.picto}
-                    source={images.ui.burgermenu}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={styles.picto_touchable}
-                onPressIn={() => setAddressModal('dest')}
-            >
-                <Image
-                    style={styles.picto}
-                    source={images.ui.dest}
-                />
-            </TouchableOpacity>
         </View>
-    </View>
-  )
+    )
 }
 
 const styles = StyleSheet.create({

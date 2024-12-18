@@ -42,7 +42,7 @@ export const PathFinderModal = ({start, destination, onCancel, onValid}) => {
             </Text>
             <Button
                 onPress={() => handleValid()}
-                text="Calculer" 
+                text="Calculer"
                 bgcolor="green"
             />
             <Button
