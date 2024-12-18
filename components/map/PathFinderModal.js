@@ -2,11 +2,10 @@ import { useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '../widgets/Button'
 
-import { useAtom } from 'jotai'
-import { showFullWrapperAtom } from '../../data/atoms'
+import { useFullWrapper } from '../contexts/FullWrapper'
 
 export const PathFinderModal = ({start, destination, onCancel, onValid}) => {
-    const [showFullWrapper, setShowFullWrapper] = useAtom(showFullWrapperAtom)
+  const { showFullWrapper, setShowFullWrapper } = useFullWrapper()
 
     useEffect(()=>{
         setShowFullWrapper(true)

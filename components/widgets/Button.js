@@ -1,11 +1,7 @@
 import React from "react"
 import { StyleSheet, Text, TouchableOpacity } from "react-native"
 
-import { useFonts } from "expo-font"
-
 export const Button = ({button_style={}, text_style={}, text, bgcolor, onPress, disabled=false}) => {
-  // const [fonts] = useFonts({'FredokaOne': require('../../assets/fonts/FredokaOne.ttf')})
-
   const pressable_style = {backgroundColor: '', opacity: disabled ? .3 : 1}
   const disabled_style = { color: disabled ? 'black' : 'white'}
 

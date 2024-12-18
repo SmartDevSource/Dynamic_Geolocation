@@ -2,16 +2,13 @@ import { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, TextInput } from 'react-native'
 import { Button } from '../widgets/Button'
 import axios from 'axios'
-
-import { useAtom } from 'jotai'
-import { showFullWrapperAtom } from '../../data/atoms'
+import { useFullWrapper } from '../contexts/FullWrapper'
 
 const API_GOUV_URL = 'https://api-adresse.data.gouv.fr/search'
 
 export const AddressModal = ({type, onCancel, onValid}) => {
     const [currentAddress, setCurrentAddress] = useState('')
-
-    const [showFullWrapper, setShowFullWrapper] = useAtom(showFullWrapperAtom)
+    const { showFullWrapper, setShowFullWrapper } = useFullWrapper()
 
     useEffect(()=>{
         setShowFullWrapper(true)

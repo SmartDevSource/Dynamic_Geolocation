@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import { StyleSheet, Image, View, TouchableOpacity, Text, Alert } from 'react-native'
 import MapView, { Marker, Polyline } from 'react-native-maps'
-import { Button } from '../widgets/Button'
 import * as Location from 'expo-location'
 import axios from 'axios'
 import { images } from '../../data/images'
 
-import { useAtom } from 'jotai'
-import { showFullWrapperAtom } from '../../data/atoms'
 import { AddressModal } from './AddressModal'
 import { PathFinderModal } from './PathFinderModal'
+import { useFullWrapper } from '../contexts/FullWrapper'
 
 const ORS_API_KEY = '5b3ce3597851110001cf6248be96be8bcda642c6b7f692b007da1c42'
 const ORL_URL = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`
@@ -24,13 +22,13 @@ export const Map = () => {
     const [addressModal, setAddressModal] = useState('')
     const [showPathFinderModal, setShowPathFinderModal] = useState(false)
 
-    const [showFullWrapper, setShowFullWrapper] = useAtom(showFullWrapperAtom)
+    const { showFullWrapper, setShowFullWrapper } = useFullWrapper()
 
     useEffect(()=>{
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== 'granted'){
-                alert("Vous devez autoriser la localisation pour utiliser la carte.")
+                Alert.alert("Attention", "Vous devez autoriser la localisation pour utiliser la carte.")
                 return
             }
             const step_interval = setInterval(async () => {
