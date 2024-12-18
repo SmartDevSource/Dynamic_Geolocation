@@ -4,8 +4,6 @@ import { StyleSheet, Text, View } from "react-native"
 import { useAtom } from "jotai"
 import { alertAtom } from '../../data/atoms.js'
 
-import { playSound } from '../audio/AudioManager.js'
-
 export const Alert = ({data}) => {
     const [alertData, setAlertData] = useAtom(alertAtom)
     const [currentTimeout, setCurrentTimeout] = useState(null)
@@ -17,12 +15,9 @@ export const Alert = ({data}) => {
     useEffect(()=>{
         if (currentTimeout) clearTimeout(currentTimeout)
         const delay = alertData.permanent ? 99999 : 4000
-        if (alertData.sound){
-            playSound('info')
-        }
         setCurrentTimeout(
             setTimeout(()=>{
-                setAlertData({message: '', type: '', permanent: false, sound: false})
+                setAlertData({message: '', type: '', permanent: false})
             }, delay)
         )
     }, [data])
