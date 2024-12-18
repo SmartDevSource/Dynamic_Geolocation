@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useAtom } from 'jotai'
 import { showFullWrapperAtom } from '../../data/atoms'
 
-const API_DATA_GOUV = 'https://api-adresse.data.gouv.fr/search'
+const API_GOUV_URL = 'https://api-adresse.data.gouv.fr/search'
 
 export const AddressModal = ({type, onCancel, onValid}) => {
     const [currentAddress, setCurrentAddress] = useState('')
@@ -18,7 +18,7 @@ export const AddressModal = ({type, onCancel, onValid}) => {
     }, [])
 
     const getAddress = async text => {
-      const query = `${API_DATA_GOUV}/?q=${text}&limit=5`
+      const query = `${API_GOUV_URL}/?q=${text}&limit=5`
       try {
         const response = await axios.get(query)
         if (response.data.features.length > 0){
