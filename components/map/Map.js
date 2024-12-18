@@ -3,7 +3,7 @@ import { StyleSheet, Image, View, TouchableOpacity, Text, Alert } from 'react-na
 import MapView, { Marker, Polyline } from 'react-native-maps'
 import * as Location from 'expo-location'
 import axios from 'axios'
-import { images } from '../../data/images'
+import { images } from '../../images'
 
 import { AddressModal } from './AddressModal'
 import { PathFinderModal } from './PathFinderModal'
