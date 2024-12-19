@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StyleSheet, Image, View, TouchableOpacity, Text, Alert } from 'react-native'
+import { StyleSheet, View, Text, Alert } from 'react-native'
 import MapView, { Marker, Polyline } from 'react-native-maps'
 import * as Location from 'expo-location'
 import axios from 'axios'
@@ -8,6 +8,7 @@ import { images } from '../../images'
 import { AddressModal } from './AddressModal'
 import { PathFinderModal } from './PathFinderModal'
 import { useFullWrapper } from '../contexts/FullWrapper'
+import { PictoTouchable } from '../widgets/PictoTouchable'
 
 const ORS_API_KEY = '5b3ce3597851110001cf6248be96be8bcda642c6b7f692b007da1c42'
 const ORL_URL = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`
@@ -174,34 +175,19 @@ export const Map = () => {
                 }
             </MapView>
             }
-            <View style={styles.buttons_container}>
-                <TouchableOpacity
-                    style={styles.picto_touchable}
+            <View style={styles.pictos_touchable_container}>
+                <PictoTouchable
+                    source={images.ui.start}
                     onPressIn={() => setAddressModal('start')}
-                >
-                    <Image
-                        style={styles.picto}
-                        source={images.ui.start}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={styles.picto_touchable}
+                />
+                <PictoTouchable
+                    source={images.ui.burgermenu}
                     onPressIn={() => handleShowPathFinder()}
-                >
-                    <Image
-                        style={styles.picto}
-                        source={images.ui.burgermenu}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={styles.picto_touchable}
+                />
+                <PictoTouchable
+                    source={images.ui.dest}
                     onPressIn={() => setAddressModal('dest')}
-                >
-                    <Image
-                        style={styles.picto}
-                        source={images.ui.dest}
-                    />
-                </TouchableOpacity>
+                />
             </View>
         </View>
     )
@@ -212,24 +198,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  buttons_container: {
+  pictos_touchable_container: {
     position: 'absolute',
     width: '100%',
     bottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  picto_touchable: {
-    margin: 5,
-    padding: 5,
-    backgroundColor: 'rgba(255, 255, 255, .8)',
-    borderWidth: 1,
-    borderColor: 'rgb(180, 180, 180)',
-    borderRadius: 5
-  },
-  picto: {
-    width: 60,
-    height: 60,
   },
   infos_container: {
     position: 'absolute',

@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Nous avons besoin de votre localisation pour afficher la carte",
-        "NSLocationAlwaysUsageDescription": "Nous avons besoin de votre localisation pour afficher la carte à tout moment"
+        "NSLocationAlwaysUsageDescription": "Nous avons besoin de votre localisation pour afficher la carte"
       }
     },
     "android": {
