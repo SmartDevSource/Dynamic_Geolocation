@@ -10,8 +10,8 @@ import { PathFinderModal } from './PathFinderModal'
 import { useFullWrapper } from '../contexts/FullWrapper'
 import { PictoTouchable } from '../widgets/PictoTouchable'
 
-const ORS_API_KEY = '5b3ce3597851110001cf6248be96be8bcda642c6b7f692b007da1c42'
-const ORL_URL = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`
+const ORS_API_KEY =  process.env.EXPO_PUBLIC_ORS_API_KEY 
+const ORS_DRIVING_URL = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`
 
 export const Map = () => {
     const [start, setStart] = useState('')
@@ -75,7 +75,7 @@ export const Map = () => {
         {
             const start_coords = start.geometry.coordinates
             const destination_coords = destination.geometry.coordinates
-            const query = `${ORL_URL}&start=${start_coords[0]},${start_coords[1]}&end=${destination_coords[0]},${destination_coords[1]}`
+            const query = `${ORS_DRIVING_URL}&start=${start_coords[0]},${start_coords[1]}&end=${destination_coords[0]},${destination_coords[1]}`
 
             await axios.get(query)
             .then(response => {
